@@ -1,24 +1,24 @@
-#Backend Folder
+# Backend Folder
 
-##src folder
+## src folder
 
-###config
+### config
 contains the config.ts file, with various parameter like port ect
 
-###controllers
+### controllers
 contains controller files, for manipulating data and obj
 
-###database
+### database
 contains instruction for connecting to the db
 
-###models
+### models
 contains information and instruction to convert data into DAO or DTO
 
-###repositories
+### repositories
 manage the repositories with the tables of db 
 
-###routes
+### routes
 routes used for API
 
-###services
+### services
 idk if we need that
