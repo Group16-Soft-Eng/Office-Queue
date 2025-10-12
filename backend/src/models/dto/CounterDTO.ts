@@ -11,11 +11,11 @@
 
 export class CounterDTO {
     counter_id: number;     // Id of counter out of 4
-    services?: Array<number>;     // array of current service_type
+    services?: Array<string>;     // array of current service_type
     is_active: boolean;     // true if counter is active
 }
 
-export function createCounterDTO(counter_id: number, services: Array<number>, is_active: boolean): CounterDTO {
+export function createCounterDTO(counter_id: number, services: Array<string>, is_active: boolean): CounterDTO {
     return {
         counter_id,
         services,
@@ -31,6 +31,7 @@ export function setActive(counter: CounterDTO, counter_id: number): CounterDTO {
 export function counterToJSON(json: any): CounterDTO {
     return counterToJSONTyped(json, false);
 }
+
 export function counterToJSONTyped(
     value?: CounterDTO | null,
     ignoreDiscriminator: boolean = false): any {
@@ -44,24 +45,20 @@ export function counterToJSONTyped(
     };
 }
 
-/*
-export function SensorToJSON(json: any): Sensor {
-  return SensorToJSONTyped(json, false);
+// export all counters in json format
+export function countersToJSON(json: any): CounterDTO[] {
+    return CountersToJSONTyped(json, false);
 }
 
-export function SensorToJSONTyped(
-  value?: Sensor | null,
-  ignoreDiscriminator: boolean = false
-): any {
-  if (value == null) {
-    return value;
-  }
- return {
-    macAddress: value["macAddress"],
-    name: value["name"],
-    description: value["description"],
-    variable: value["variable"],
-    unit: value["unit"]
-  };
+export function CountersToJSONTyped(value?: CounterDTO[] | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
+    }
+
+    return {
+        counter_id: value['counter_id'],
+        services: value['services'],
+        is_active: value['is_active']
+    };
+
 }
-*/

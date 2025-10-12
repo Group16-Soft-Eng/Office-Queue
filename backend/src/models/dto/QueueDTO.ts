@@ -15,7 +15,8 @@ export class QueueDTO {
     avg_service_time: number;   // in minutes , rounded to nearest integer
 }
 
-export function createQueueDTO(queue_id: string, service_type: string, ticket_list: number[], avg_service_time: number): QueueDTO {
+// factory function to create a QueueDTO
+export function createQueueDTO(queue_id: string, service_type: string, ticket_list: number[], avg_service_time?: number): QueueDTO {
     return {
         queue_id,
         service_type,
@@ -24,10 +25,12 @@ export function createQueueDTO(queue_id: string, service_type: string, ticket_li
     };
 }
 
+// convert a JSON object to QueueDTO
 export function queueToJSON(json: any): QueueDTO {
     return queueToJSONTyped(json, false);
 }
 
+// convert a JSON object to QueueDTO with type checking
 export function queueToJSONTyped(
     value?: QueueDTO | null,
     ignoreDiscriminator: boolean = false): any {
@@ -42,3 +45,11 @@ export function queueToJSONTyped(
     };
 }
 
+/**
+ * SERVICES FOR QUEUES
+ */
+// check if queue_id is valid
+export function checkQueueId(queue_id: string): boolean {
+    const valid_queue_ids = ["q1", "q2", "q3", "q4"];
+    return valid_queue_ids.includes(queue_id);
+}
