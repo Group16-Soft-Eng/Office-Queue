@@ -1,14 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import './App.css';
 import Home from './pages/Home';
 import Customer from './pages/Customer';
 import Counter from './pages/Counter';
 import Manager from './pages/Manager';
 import DisplayBoard from './pages/DisplayBoard';
-import './App.css';
+import MainMenu from './components/MainMenu';
 
 const App: React.FC = () => (
+  
   <Router>
+    <MainMenu />
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/customer" element={<Customer />} />

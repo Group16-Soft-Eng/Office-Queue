@@ -1,4 +1,4 @@
-/* App.css */
+/* Reset & Base */
 * {
   margin: 0;
   padding: 0;
@@ -9,9 +9,57 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
-  padding: 20px;
+  color: #2c3e50;
 }
 
+/* Header Menu */
+.header-menu {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  padding: 1.2rem 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  z-index: 100;
+}
+
+.header-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.15rem;
+  margin: 0 2rem;
+  letter-spacing: 0.5px;
+  transition: color 0.2s, transform 0.2s;
+  position: relative;
+}
+
+.header-menu a::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #ffeaa7;
+  transition: width 0.2s;
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+}
+
+.header-menu a:hover {
+  color: #ffeaa7;
+  transform: translateY(-2px);
+}
+
+.header-menu a:hover::after {
+  width: 100%;
+}
+
+/* Main App Container */
 .app {
   min-height: 100vh;
   display: flex;
@@ -19,23 +67,34 @@ body {
   justify-content: center;
 }
 
-.window {
-  background: white;
-  border-radius: 15px;
-  padding: 3rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+/* Card/Window */
+.window, .modal-window {
+  background: #fff;
+  border-radius: 18px;
+  padding: 3rem 2.5rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.13);
   text-align: center;
-  min-width: 450px;
+  min-width: 350px;
+  max-width: 480px;
   border: 1px solid #e0e0e0;
+  margin: 2rem auto;
+  transition: box-shadow 0.2s;
 }
 
+.window:hover, .modal-window:hover {
+  box-shadow: 0 28px 60px rgba(0,0,0,0.18);
+}
+
+/* Titles */
 .app-title {
-  color: #2c3e50;
+  color: #764ba2;
   margin-bottom: 2.5rem;
-  font-size: 2.2rem;
-  font-weight: 600;
+  font-size: 2.3rem;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
+/* Button Group */
 .button-group {
   display: flex;
   flex-direction: column;
@@ -43,33 +102,41 @@ body {
   width: 100%;
 }
 
-.menu-btn {
-  padding: 1.2rem 2rem;
+/* Buttons */
+.menu-btn, .ticket-btn, .back-btn {
+  padding: 1.1rem 2rem;
   border: none;
   border-radius: 8px;
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: white;
+  color: #fff;
   width: 100%;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.08);
 }
 
-.menu-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+.menu-btn {
+  background: linear-gradient(135deg, #667eea, #764ba2);
 }
 
-.admin-btn {
+.menu-btn.admin-btn {
   background: linear-gradient(135deg, #e74c3c, #c0392b);
 }
 
-.officer-btn {
+.menu-btn.officer-btn {
   background: linear-gradient(135deg, #3498db, #2980b9);
 }
 
-.customer-btn {
+.menu-btn.customer-btn, .ticket-btn {
   background: linear-gradient(135deg, #27ae60, #229954);
+}
+
+.menu-btn:hover, .ticket-btn:hover, .back-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.13);
+  opacity: 0.95;
 }
 
 /* Modal Styles */
@@ -79,22 +146,18 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  /*background: rgba(0, 0, 0, 0.45);*/
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.modal-window {
-  min-width: 400px;
-  margin: 20px;
+  z-index: 1000;
 }
 
 .modal-header h2 {
-  color: #2c3e50;
+  color: #764ba2;
   margin-bottom: 1.5rem;
-  font-weight: 500;
-  font-size: 1.8rem;
+  font-weight: 600;
+  font-size: 1.7rem;
 }
 
 .modal-body {
@@ -107,26 +170,6 @@ body {
   font-size: 1.1rem;
 }
 
-.ticket-btn {
-  background: linear-gradient(135deg, #27ae60, #229954);
-  color: white;
-  border: none;
-  padding: 1.2rem 2.5rem;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 16px rgba(39, 174, 96, 0.3);
-  width: 100%;
-  margin-bottom: 1rem;
-}
-
-.ticket-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 20px rgba(39, 174, 96, 0.4);
-}
-
 .modal-footer {
   text-align: center;
   margin-top: 1.5rem;
@@ -134,20 +177,21 @@ body {
 
 .back-btn {
   background: none;
-  border: 2px solid #bdc3c7;
-  color: #7f8c8d;
+  border: 2px solid #764ba2;
+  color: #764ba2;
   padding: 0.8rem 1.5rem;
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s;
   width: 100%;
 }
 
 .back-btn:hover {
-  border-color: #95a5a6;
-  color: #2c3e50;
   background: #f8f9fa;
+  color: #2c3e50;
+  border-color: #2c3e50;
 }
 
 /* Popup Styles */
@@ -161,7 +205,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 1100;
 }
 
 .popup {
@@ -169,9 +213,10 @@ body {
   border-radius: 15px;
   padding: 2.5rem;
   text-align: center;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.22);
   animation: popIn 0.5s ease-out;
-  min-width: 350px;
+  min-width: 320px;
+  max-width: 400px;
 }
 
 @keyframes popIn {
@@ -193,11 +238,11 @@ body {
 }
 
 .ticket-number {
-  font-size: 4rem;
+  font-size: 3.5rem;
   font-weight: bold;
   color: #e17055;
   margin: 1rem 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .popup-body p {
@@ -208,28 +253,58 @@ body {
 
 .countdown {
   color: #636e72;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   margin-top: 1.5rem;
   font-style: italic;
 }
 
 /* Responsive Design */
-@media (max-width: 480px) {
-  body {
-    padding: 10px;
+@media (max-width: 600px) {
+  .header-menu {
+    flex-direction: column;
+    padding: 0.8rem 0;
   }
-  
-  .window, .modal-window {
+  .header-menu a {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+  }
+  .window, .modal-window, .popup {
     min-width: 90vw;
-    margin: 10px;
-    padding: 2rem 1.5rem;
+    max-width: 98vw;
+    padding: 1.5rem 1rem;
   }
-  
   .app-title {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
   }
-  
-  .menu-btn {
-    padding: 1rem 1.5rem;
+  .menu-btn, .ticket-btn, .back-btn {
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
   }
+}
+
+/* Titolo Home stiloso */
+.app-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 2px 2px 12px #764ba2, 0 0 8px #667eea;
+  letter-spacing: 2px;
+  margin-bottom: 2rem;
+  background: none;
+}
+
+/* Cursore animato */
+.app-title span {
+  animation: blink 1s infinite;
+  font-weight: bold;
+}
+
+
+/* Paragrafo descrizione */
+.home-desc {
+  font-size: 1.3rem;
+  color: #fff;
+  text-shadow: 1px 1px 8px #764ba2;
+  margin-top: 2rem;
+  text-align: center;
 }
