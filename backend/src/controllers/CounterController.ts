@@ -3,8 +3,8 @@
  * 
  */
 
-import {CounterDTO, createCounterDTO, counterToJSON} from '../models/dto/CounterDTO';
-import {getCounters, setActive, addService, setInactive, removeService} from '../models/dao/counterDAO';
+import {CounterDTO, createCounterDTO, counterToJSON} from '@models/dto/CounterDTO';
+import {getCounters, setActive, addService, setInactive, removeService} from '@models/dao/CounterDAO';
 
 // OPEN A COUNTER - sets active state to true
 export const openCounter = (counter_id: number, services?: Array<string>): CounterDTO => {

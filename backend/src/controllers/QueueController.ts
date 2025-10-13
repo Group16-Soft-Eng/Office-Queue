@@ -4,7 +4,7 @@
  */
 
 // import necessary DTOs and DAO functions
-import { QueueDTO, createQueueDTO, queueToJSON } from '../models/dto/QueueDTO';
+import { QueueDTO, createQueueDTO, queueToJSON } from '@models/dto/QueueDTO';
 import { getQueues, getLongestQueueByServiceType, addTicketToQueue, popTicketFromQueue, callNextClient } from '../models/dao/QueueDAO';
 
 // GET QUEUES - returns the list of all queues
