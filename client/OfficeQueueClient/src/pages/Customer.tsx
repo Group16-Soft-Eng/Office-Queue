@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import TicketPopup from "../components/TicketPopup";
-import { getTicket } from "../api/ticketApi";
+import { useTicket } from "../hooks/useTicket";
 
 const services = [
   { id: "service1", name: "Service 1" },
@@ -10,23 +10,23 @@ const services = [
 ];
 
 const Customer: React.FC = () => {
-  const [ticketVisible, setTicketVisible] = useState(false);
-  const [ticketNumber, setTicketNumber] = useState<string | null>(null);
+  const [ticketVisible, setTicketVisible] = React.useState(false);
+  const { ticket, loading, createTicket } = useTicket();
 
-  const handleGetTicket = async (serviceId: string) => {
+  const [errorTicket, setErrorTicket] = React.useState<{ id_ticket: string; service_type: string } | null>(null);
+
+    const handleGetTicket = async (serviceId: string) => {
+    setErrorTicket(null);
     try {
-      const data = await getTicket(serviceId);
-      setTicketNumber(data.number ?? "N/A");
-      setTicketVisible(true);
+        await createTicket(serviceId);
     } catch {
-      setTicketNumber("Errore");
-      setTicketVisible(true);
+        setErrorTicket({ id_ticket: "Error", service_type: serviceId });
     }
-  };
+    setTicketVisible(true);
+    };
 
   const handleClosePopup = () => {
     setTicketVisible(false);
-    setTicketNumber(null);
   };
 
   return (
@@ -43,8 +43,9 @@ const Customer: React.FC = () => {
                 key={service.id}
                 className="ticket-btn"
                 onClick={() => handleGetTicket(service.id)}
+                disabled={loading}
               >
-                {service.name}
+                {loading ? "Creating..." : service.name}
               </button>
             ))}
           </div>
@@ -53,7 +54,7 @@ const Customer: React.FC = () => {
       {ticketVisible && (
         <TicketPopup
           visible={ticketVisible}
-          ticketNumber={ticketNumber}
+        ticketNumber={errorTicket ? errorTicket.id_ticket : ticket?.id_ticket ?? null}
           onClose={handleClosePopup}
         />
       )}

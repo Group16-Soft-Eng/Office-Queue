@@ -1,15 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { getTicket } from '../api/ticketApi';
 
+export interface Ticket {
+  id_ticket?: string;
+  id_counter?: number;
+  service_type?: string;
+  date?: string;
+}
+
 export function useTicket() {
-  const [tickets, setTickets] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    getTicket()
-      .then(data => setTickets(data))
-      .finally(() => setLoading(false));
-  }, []);
+  const [ticket, setTicket] = useState<Ticket | null>(null);
+  const [loading, setLoading] = useState(false);
+  const createTicket = async (serviceType: string) => {
+    setLoading(true);
+    try {
+      const data = await getTicket(serviceType);
+      setTicket(data);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  return { tickets, loading };
+  return { ticket, loading, createTicket };
 }

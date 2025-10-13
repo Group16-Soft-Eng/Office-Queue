@@ -15,7 +15,7 @@ const App: React.FC = () => (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/customer" element={<Customer />} />
-      <Route path="/counter" element={<Counter />} />
+      <Route path="/counter/:id" element={<Counter />} />
       <Route path="/manager" element={<Manager />} />
       <Route path="/display" element={<DisplayBoard />} />
     </Routes>

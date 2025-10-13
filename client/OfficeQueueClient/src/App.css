@@ -308,3 +308,41 @@ body {
   margin-top: 2rem;
   text-align: center;
 }
+
+
+/* Counter */
+
+.counter-layout {
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.counter-header {
+  flex: 0 0 auto;
+  padding: 2rem 3rem 1rem 3rem;
+}
+
+.counter-main {
+  flex: 1 1 auto;
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem 3rem;
+  align-items: stretch;
+}
+
+.ticket-window, .info-window {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.counter-footer {
+  flex: 0 0 auto;
+  padding: 1.5rem 3rem;
+  text-align: center;
+}
