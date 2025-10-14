@@ -6,7 +6,7 @@
  */
 export interface Ticket {
 	// Ticket unique identifier
-	id_ticket?: string;
+	id_ticket?: number;
     
 	// Counter identifier (which served the ticket)
 	id_counter?: number;
