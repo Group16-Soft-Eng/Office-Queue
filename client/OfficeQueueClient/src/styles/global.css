@@ -1,5 +1,32 @@
-body {
+/* Reset & Base */
+* {
   margin: 0;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: #f8f9fa;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #2c3e50;
+}
+
+/* Utility classes (se vuoi) */
+.text-center {
+  text-align: center;
+}
+
+.hide {
+  display: none !important;
+}
+
+/* Scrollbar styling (opzionale) */
+::-webkit-scrollbar {
+  width: 8px;
+  background: #eee;
+}
+::-webkit-scrollbar-thumb {
+  background: #764ba2;
+  border-radius: 8px;
 }

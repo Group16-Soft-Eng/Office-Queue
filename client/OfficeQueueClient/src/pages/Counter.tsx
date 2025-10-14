@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import '../styles/Counter.css';
 
 const services = ["Service 1", "Service 2"];
 
@@ -42,34 +43,12 @@ const Counter: React.FC = () => {
   };
 
   return (
-    <div
-      className="counter-layout"
-      style={{
-        minHeight: "calc(100vh - 80px)",
-        display: "flex",
-        flexDirection: "column",
-        gap: "2rem",
-        alignItems: "stretch",
-        justifyContent: "flex-start",
-        width: "100vw",
-        padding: "2rem 0",
-      }}
-    >
+    <div className="counter-container">
       {/* In cima: Counter Info */}
-      <div
-        style={{
-          background: "#fff",
-          borderRadius: "16px",
-          boxShadow: "0 2px 12px rgba(118,75,162,0.07)",
-          padding: "2rem 2.5rem",
-          margin: "0 auto",
-          width: "90%",
-          maxWidth: "900px",
-        }}
-      >
-        <h2 style={{ margin: 0, fontSize: "2rem", color: "#764ba2" }}>Counter {id}</h2>
-        <p style={{ margin: "1rem 0 0 0", fontWeight: "bold", color: "#667eea" }}>Services:</p>
-        <ul style={{ margin: 0, paddingLeft: "1.2rem", color: "#333" }}>
+      <div className="counter-info">
+        <h2>Counter {id}</h2>
+        <p className="counter-services-title">Services:</p>
+        <ul className="counter-services-list">
           {services.map(s => (
             <li key={s}>{s}</li>
           ))}
@@ -77,107 +56,34 @@ const Counter: React.FC = () => {
       </div>
 
       {/* Sotto: due finestre affiancate */}
-      <div
-        style={{
-          display: "flex",
-          gap: "2rem",
-          width: "90%",
-          maxWidth: "900px",
-          margin: "0 auto",
-        }}
-      >
+      <div className="counter-main-row">
         {/* Statistiche varie */}
-        <div
-          style={{
-            background: "#fff",
-            borderRadius: "16px",
-            boxShadow: "0 2px 12px rgba(118,75,162,0.07)",
-            padding: "2rem 2.5rem",
-            flex: 1,
-            minHeight: "220px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <h3 style={{ marginTop: 0, color: "#764ba2" }}>Statistics</h3>
+        <div className="counter-stats">
+          <h3>Statistics</h3>
           <p>Here you can show stats, queue length, or other info.</p>
         </div>
 
         {/* Ticket che si sta servendo */}
-        <div
-          style={{
-            background: "#fff",
-            borderRadius: "16px",
-            boxShadow: "0 2px 12px rgba(118,75,162,0.07)",
-            padding: "2rem 2.5rem",
-            flex: 1,
-            minHeight: "220px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "flex-start",
-          }}
-        >
-          <h3 style={{ marginTop: 0, color: "#764ba2" }}>Current Ticket</h3>
+        <div className="counter-ticket">
+          <h3>Current Ticket</h3>
           {currentTicket ? (
             <>
-              <p style={{ fontSize: "1.5rem", fontWeight: "bold", color: "#667eea" }}>{currentTicket}</p>
+              <p className="ticket-number">{currentTicket}</p>
               <p>Service: <strong>{serviceType}</strong></p>
-              <button
-                style={{
-                  background: "linear-gradient(90deg, #667eea 0%, #764ba2 100%)",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "8px",
-                  padding: "0.8rem 2rem",
-                  fontSize: "1.1rem",
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  marginTop: "1.2rem",
-                  boxShadow: "0 2px 8px rgba(118,75,162,0.08)",
-                }}
-                onClick={handleCompleteTicket}
-                disabled={loading}
-              >
+              <button className="counter-btn" onClick={handleCompleteTicket} disabled={loading}>
                 Complete Ticket
               </button>
             </>
           ) : (
-            <p style={{ color: "#aaa", fontSize: "1.1rem" }}>No ticket is being served.</p>
+            <p className="ticket-empty">No ticket is being served.</p>
           )}
         </div>
       </div>
 
       {/* In fondo: Next Customer Button */}
-      <div
-        style={{
-          background: "#fff",
-          borderRadius: "16px",
-          boxShadow: "0 2px 12px rgba(118,75,162,0.07)",
-          padding: "2rem 2.5rem",
-          margin: "0 auto",
-          width: "90%",
-          maxWidth: "900px",
-          textAlign: "center",
-        }}
-      >
+      <div className="counter-footer">
         {!currentTicket && (
-          <button
-            style={{
-              background: "linear-gradient(90deg, #667eea 0%, #764ba2 100%)",
-              color: "#fff",
-              border: "none",
-              borderRadius: "8px",
-              padding: "0.8rem 2rem",
-              fontSize: "1.1rem",
-              fontWeight: 600,
-              cursor: "pointer",
-              boxShadow: "0 2px 8px rgba(118,75,162,0.08)",
-            }}
-            onClick={handleNextCustomer}
-            disabled={loading}
-          >
+          <button className="counter-btn" onClick={handleNextCustomer} disabled={loading}>
             Next Customer
           </button>
         )}

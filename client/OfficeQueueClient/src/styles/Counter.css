@@ -1,0 +1,102 @@
+.counter-container {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.counter-info {
+  background: rgba(255,255,255,0.92);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(118,75,162,0.07);
+  padding: 2rem 2.5rem;
+  max-width: 900px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.counter-info h2 {
+  margin: 0;
+  font-size: 2rem;
+  color: #764ba2;
+}
+
+.counter-services-title {
+  margin: 1rem 0 0 0;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.counter-services-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: #333;
+}
+
+.counter-main-row {
+  display: flex;
+  gap: 2rem;
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.counter-stats, .counter-ticket {
+  background: rgba(255,255,255,0.92);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(118,75,162,0.07);
+  padding: 2rem 2.5rem;
+  flex: 1;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.counter-ticket h3 {
+  margin-top: 0;
+  color: #764ba2;
+}
+
+.ticket-number {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.ticket-empty {
+  color: #aaa;
+  font-size: 1.1rem;
+}
+
+.counter-footer {
+  background: rgba(255,255,255,0.92);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(118,75,162,0.07);
+  padding: 2rem 2.5rem;
+  max-width: 900px;
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.counter-btn {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1.2rem;
+  box-shadow: 0 2px 8px rgba(118,75,162,0.08);
+  transition: background 0.2s;
+}
+
+.counter-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}

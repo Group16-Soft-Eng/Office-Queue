@@ -1,6 +1,7 @@
 import React from "react";
 import TicketPopup from "../components/TicketPopup";
 import { useTicket } from "../hooks/useTicket";
+import '../styles/Customer.css';
 
 const services = [
   { id: "service1", name: "Service 1" },
@@ -11,33 +12,33 @@ const services = [
 
 const Customer: React.FC = () => {
   const [ticketVisible, setTicketVisible] = React.useState(false);
+  const [errorTicket, setErrorTicket] = React.useState<string | null>(null);
   const { ticket, loading, createTicket } = useTicket();
 
-  const [errorTicket, setErrorTicket] = React.useState<{ id_ticket: string; service_type: string } | null>(null);
-
-    const handleGetTicket = async (serviceId: string) => {
+  const handleGetTicket = async (serviceId: string) => {
     setErrorTicket(null);
     try {
-        await createTicket(serviceId);
+      await createTicket(serviceId);
     } catch {
-        setErrorTicket({ id_ticket: "Error", service_type: serviceId });
+      setErrorTicket("Errore");
     }
     setTicketVisible(true);
-    };
+  };
 
   const handleClosePopup = () => {
     setTicketVisible(false);
+    setErrorTicket(null);
   };
 
   return (
-    <>
-      <div className="window modal-window">
-        <div className="modal-header">
+    <div className="customer-container">
+      <div className="customer-window">
+        <div className="customer-header">
           <h2>Customer Service</h2>
         </div>
-        <div className="modal-body">
+        <div className="customer-body">
           <p>Choose a service:</p>
-          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
+          <div className="customer-services">
             {services.map(service => (
               <button
                 key={service.id}
@@ -54,11 +55,11 @@ const Customer: React.FC = () => {
       {ticketVisible && (
         <TicketPopup
           visible={ticketVisible}
-        ticketNumber={errorTicket ? errorTicket.id_ticket : ticket?.id_ticket ?? null}
+          ticketNumber={errorTicket ? errorTicket : ticket?.id_ticket ?? null}
           onClose={handleClosePopup}
         />
       )}
-    </>
+    </div>
   );
 };
 

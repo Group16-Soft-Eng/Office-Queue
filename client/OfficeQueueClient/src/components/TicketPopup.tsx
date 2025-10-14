@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import '../styles/TicketPopup.css';
 
 interface TicketPopupProps {
   visible: boolean;
@@ -34,12 +35,12 @@ const TicketPopup: React.FC<TicketPopupProps> = ({ visible, ticketNumber, onClos
   if (!visible) return null;
 
   return (
-    <div className="popup-overlay">
-      <div className="popup" ref={popupRef}>
-        <div className="popup-header">
+    <div className="ticket-popup-overlay">
+      <div className="ticket-popup" ref={popupRef}>
+        <div className="ticket-popup-header">
           <h3>Your Ticket</h3>
         </div>
-        <div className="popup-body">
+        <div className="ticket-popup-body">
           <div className="ticket-number">{ticketNumber}</div>
           <p>Please wait for your number to be called</p>
         </div>

@@ -1,0 +1,63 @@
+/* Popup Styles */
+.ticket-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+}
+
+.ticket-popup {
+  background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+  border-radius: 15px;
+  padding: 2.5rem;
+  text-align: center;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.22);
+  animation: popIn 0.5s ease-out;
+  min-width: 320px;
+  max-width: 400px;
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.ticket-popup-header h3 {
+  color: #2d3436;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.ticket-number {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #e17055;
+  margin: 1rem 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.ticket-popup-body p {
+  color: #2d3436;
+  margin: 1rem 0;
+  font-size: 1.1rem;
+}
+
+.countdown {
+  color: #636e72;
+  font-size: 0.95rem;
+  margin-top: 1.5rem;
+  font-style: italic;
+}
