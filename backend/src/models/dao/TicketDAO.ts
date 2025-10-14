@@ -1,6 +1,9 @@
+//! TICKET DAO
+
 import { Entity, PrimaryColumn, Column } from "typeorm";
 
-@Entity("TICKET")
+@Entity("TICKET") // key = (id_ticket, date)
+
 export class TicketDAO {
 	@PrimaryColumn({ type: "integer", nullable: false })
 	id_ticket: number;
@@ -11,7 +14,6 @@ export class TicketDAO {
 	@Column({ nullable: false })
 	service_type: string;
 
-	// date is part of the composite primary key together with id_ticket
 	@PrimaryColumn({ type: "text", nullable: false })
 	date: string;
 }

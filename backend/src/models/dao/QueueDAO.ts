@@ -4,7 +4,7 @@
  */
 
 import { QueueDTO, createQueueDTO } from "../dto/QueueDTO";
-import { checkServiceType } from "./ServicesDAO";
+import { checkServiceType } from "../dto/ServicesDTO";
 
 /**
  * Queue structure: 
