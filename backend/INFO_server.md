@@ -120,10 +120,10 @@ TODO
 ## `office_queue`
 ```sql
 CREATE TABLE "TICKET" (
-	"id_ticket"	TEXT NOT NULL UNIQUE,
+	"id_ticket"	INTEGER NOT NULL UNIQUE,
 	"id_counter"	INTEGER NOT NULL,
 	"service_type"	TEXT NOT NULL,
 	"date"	TEXT NOT NULL,
-	PRIMARY KEY("id_ticket")
+	PRIMARY KEY("id_ticket","date")
 );
 ```
