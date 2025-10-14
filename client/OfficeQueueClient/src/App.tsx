@@ -7,6 +7,9 @@ import Counter from './pages/Counter';
 import Manager from './pages/Manager';
 import DisplayBoard from './pages/DisplayBoard';
 import MainMenu from './components/MainMenu';
+import Statistics from './pages/Statistics';
+import ServicePage from './pages/ServicePage';
+
 
 const App: React.FC = () => (
   
@@ -18,6 +21,9 @@ const App: React.FC = () => (
       <Route path="/counter/:id" element={<Counter />} />
       <Route path="/manager" element={<Manager />} />
       <Route path="/display" element={<DisplayBoard />} />
+      <Route path="/counter" element={<Counter />} />
+      <Route path="/statistics" element={<Statistics />} />
+      <Route path="/service/:id" element={<ServicePage />} />
     </Routes>
   </Router>
 );

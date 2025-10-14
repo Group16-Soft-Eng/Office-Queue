@@ -4,10 +4,16 @@ import '../styles/TicketPopup.css';
 interface TicketPopupProps {
   visible: boolean;
   ticketNumber: string | null;
+  estimatedTime?: string;
   onClose: () => void;
 }
 
-const TicketPopup: React.FC<TicketPopupProps> = ({ visible, ticketNumber, onClose }) => {
+const TicketPopup: React.FC<TicketPopupProps> = ({ 
+  visible, 
+  ticketNumber, 
+  estimatedTime, 
+  onClose 
+}) => {
   const popupRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -42,6 +48,11 @@ const TicketPopup: React.FC<TicketPopupProps> = ({ visible, ticketNumber, onClos
         </div>
         <div className="ticket-popup-body">
           <div className="ticket-number">{ticketNumber}</div>
+          {estimatedTime && (
+            <div className="estimated-time-info">
+              <p>Estimated wait time: <strong>{estimatedTime}</strong></p>
+            </div>
+          )}
           <p>Please wait for your number to be called</p>
         </div>
       </div>

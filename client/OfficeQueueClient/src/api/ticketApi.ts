@@ -11,3 +11,4 @@ export async function getTicket(serviceType: string) {
   if (!response.ok) throw new Error('Error during ticket creation');
   return response.json();
 }
+

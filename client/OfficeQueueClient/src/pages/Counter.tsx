@@ -1,95 +1,59 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+// CounterPage.tsx
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Counter.css';
 
-const services = ["Service 1", "Service 2"];
+const CounterPage: React.FC = () => {
+  // Hook for navigation between pages
+  const navigate = useNavigate();
+  
+  // State to track which counters are active (1-5)
+  const [activeServices, setActiveServices] = useState<number[]>([]);
 
-const Counter: React.FC = () => {
-  const { id } = useParams();
-  const [currentTicket, setCurrentTicket] = useState<string | null>(null);
-  const [serviceType, setServiceType] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  const handleNextCustomer = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch("/get_ticket?id_counter=" + id);
-      const data = await response.json();
-      setCurrentTicket(data.id_ticket);
-      setServiceType(data.service_type);
-    } finally {
-      setLoading(false);
+  // Load active services when component first loads
+  useEffect(() => {
+    // Get the list of active services from browser storage
+    const saved = localStorage.getItem('selectedServices');
+    if (saved) {
+      // Convert from string to array and update state
+      setActiveServices(JSON.parse(saved));
     }
-  };
+  }, []); // Empty array means this runs only once when page loads
 
-  const handleCompleteTicket = async () => {
-    setLoading(true);
-    try {
-      await fetch("/complete_ticket", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id_ticket: currentTicket,
-          id_counter: id,
-          service_type: serviceType,
-          date: new Date().toISOString()
-        })
-      });
-      setCurrentTicket(null);
-      setServiceType(null);
-    } finally {
-      setLoading(false);
-    }
+  // Function to handle when a counter is clicked
+  const handleCounterSelect = (counterNumber: number) => {
+    // Navigate to the service page for the selected counter
+    navigate(`/service/${counterNumber}`);
   };
 
   return (
-    <div className="counter-container">
-      {/* In cima: Counter Info */}
-      <div className="counter-info">
-        <h2>Counter {id}</h2>
-        <p className="counter-services-title">Services:</p>
-        <ul className="counter-services-list">
-          {services.map(s => (
-            <li key={s}>{s}</li>
+    <div className="counter-page-container">
+      <div className="counter-box">
+        <h2>Choose a Counter</h2>
+        <p>Select your counter station:</p>
+        
+        {/* Container for all counter buttons */}
+        <div className="counter-buttons">
+          {/* Create buttons for counters 1 through 5 */}
+          {[1, 2, 3, 4, 5].map((num) => (
+            <button
+              key={num} // Unique key for React
+              // Apply different styles based on whether counter is active
+              className={`counter-btn ${activeServices.includes(num) ? 'active' : 'inactive'}`}
+              // When clicked, go to the service page
+              onClick={() => handleCounterSelect(num)}
+              // Disable button if counter is not active
+              disabled={!activeServices.includes(num)}
+            >
+              Counter {num}
+              {/* Show "(Inactive)" text for inactive counters */}
+              {!activeServices.includes(num) && " (Inactive)"}
+            </button>
           ))}
-        </ul>
-      </div>
-
-      {/* Sotto: due finestre affiancate */}
-      <div className="counter-main-row">
-        {/* Statistiche varie */}
-        <div className="counter-stats">
-          <h3>Statistics</h3>
-          <p>Here you can show stats, queue length, or other info.</p>
         </div>
-
-        {/* Ticket che si sta servendo */}
-        <div className="counter-ticket">
-          <h3>Current Ticket</h3>
-          {currentTicket ? (
-            <>
-              <p className="ticket-number">{currentTicket}</p>
-              <p>Service: <strong>{serviceType}</strong></p>
-              <button className="counter-btn" onClick={handleCompleteTicket} disabled={loading}>
-                Complete Ticket
-              </button>
-            </>
-          ) : (
-            <p className="ticket-empty">No ticket is being served.</p>
-          )}
-        </div>
-      </div>
-
-      {/* In fondo: Next Customer Button */}
-      <div className="counter-footer">
-        {!currentTicket && (
-          <button className="counter-btn" onClick={handleNextCustomer} disabled={loading}>
-            Next Customer
-          </button>
-        )}
       </div>
     </div>
   );
 };
 
-export default Counter;
+export default CounterPage;
