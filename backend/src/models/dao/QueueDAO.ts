@@ -1,3 +1,5 @@
+//TODO: CAPIRE SE SPOSTARE SOLO IN DTO
+
 /**
  * Dao for Queue - locally managed
  * No database interaction

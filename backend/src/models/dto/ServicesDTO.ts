@@ -1,7 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-
 //! SERVICES DTO (not in DB, but locally in server managed)
 
 const services: string[] = ["s1", "s2", "s3", "s4"];

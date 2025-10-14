@@ -1,3 +1,5 @@
+//TODO: CAPIRE SE SPOSTARE SOLO IN DTO
+
 /*
     Initialization of Counter table
     No database involved - local management
