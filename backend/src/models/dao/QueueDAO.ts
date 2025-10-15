@@ -20,10 +20,10 @@ import { checkServiceType } from "../dto/ServicesDTO";
  */
 // config 4 queues for the office
 let queues = [
-    createQueueDTO("q1", "", []),
-    createQueueDTO("q2", "", []),
-    createQueueDTO("q3", "", []),
-    createQueueDTO("q4", "", [])
+    createQueueDTO("q1", "s1", []),
+    createQueueDTO("q2", "s2", []),
+    createQueueDTO("q3", "s3", []),
+    createQueueDTO("q4", "s4", [])
 ];
 
 

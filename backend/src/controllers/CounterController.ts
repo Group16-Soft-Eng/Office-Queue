@@ -10,7 +10,6 @@ export const openCounter = (counter_id: number, services?: Array<string>): Count
     const open_counter = setActive(counter_id);
     // if counter_id invalid, return null
     if (!open_counter) { return null; }
-
     const counter_json = counterToJSON(open_counter);
     return counter_json;
 };

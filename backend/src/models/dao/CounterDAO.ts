@@ -1,5 +1,3 @@
-//TODO: CAPIRE SE SPOSTARE SOLO IN DTO
-
 /*
     Initialization of Counter table
     No database involved - local management
@@ -16,16 +14,16 @@ let counters = [];
 
 // initialize the list of counters if not already initialized
 export function initializeCounters(): CounterDTO[] {
-if (counters.length == 0) {
-    counters = [
-    createCounterDTO(1, [], false),
-    createCounterDTO(2, [], false),
-    createCounterDTO(3, [], false),
-    createCounterDTO(4, [], false)
-];
-}else{
-    return counters; 
-}
+    if (counters.length == 0) {
+        counters = [
+            createCounterDTO(0, [], false),
+            createCounterDTO(1, [], false),
+            createCounterDTO(2, [], false),
+            createCounterDTO(3, [], false)  
+        ];
+    } else {
+        return counters;
+    }
 }
 
 // set a counter to active and return the updated list of counters
