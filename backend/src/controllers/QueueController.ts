@@ -1,6 +1,6 @@
 //! CONTROLLER for QUEUEs
 
-import { QueueDTO, createQueueDTO, queueToJSON } from '@models/dto/QueueDTO';
+import { QueueDTO, createQueueDTO, queueToJSON } from '../models/dto/QueueDTO';
 import { getQueues, getLongestQueueByServiceType, addTicketToQueue, popTicketFromQueue, callNextClient } from '../models/dao/QueueDAO';
 
 // ADD TICKET
@@ -10,7 +10,7 @@ export const addTicket = (service_type: string, ticket_id: number): QueueDTO | n
     return updated_queue ? queueToJSON(updated_queue) : null;
 }
 
-//TODO: probably it 's better to unify popTicket and serveNextClient in a single function, since once we pop a ticket from the queue, we are serving the next client
+
 // SERVE NEXT CLIENT
 export function serveNextClient(service_type: string): {new_ticket: string | null, old_ticket: number | null} | null {
     // call next client now : find the longest queue and serve the first client + and pops the previous ticket from the queue

@@ -1,7 +1,7 @@
 //! CONTROLLER for COUNTERs
 
-import {CounterDTO, createCounterDTO, counterToJSON} from '@models/dto/CounterDTO';
-import {getCounters, setActive, addService, setInactive, removeService} from '@models/dao/CounterDAO';
+import {CounterDTO, createCounterDTO, counterToJSON} from '../models/dto/CounterDTO';
+import {getCounters, setActive, addService, setInactive, removeService} from '../models/dto/CounterDTO';
 
 
 // OPEN A COUNTER
@@ -17,7 +17,6 @@ export const openCounter = (counter_id: number, services?: Array<string>): Count
 
 
 // CLOSE A COUNTER
-//TODO: scheletro da implementare
 export const closeCounter = (counter_id: number): CounterDTO => {
     // set active to false
     const closed_counter = setInactive(counter_id);
@@ -42,7 +41,6 @@ export const addCounterService = (counter_id: number, service: string, is_active
 
 
 // REMOVE SERVICE
-//TODO: scheletro da implementare
 export const removeCounterService = (counter_id: number, service: string): CounterDTO => {
     //TODO: check if counter_id is valid and service is valid --> not implemented
     // removes a service from the counter

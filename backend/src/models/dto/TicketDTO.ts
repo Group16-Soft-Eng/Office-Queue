@@ -1,9 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-/**
- * Ticket interface
- */
+//! TICKET DTO INTERFACE
+
 export interface Ticket {
 	// Ticket unique identifier
 	id_ticket?: number;
