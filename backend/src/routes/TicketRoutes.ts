@@ -4,7 +4,7 @@ import {getAllQueues, addTicket} from "@controllers/QueueController"
 
 const router = Router({mergeParams : true});
 
-let id_ticket = 0;
+let id_ticket = 1;
 
 
 router.post("/complete_ticket", async(req, res, next) =>{
@@ -23,9 +23,10 @@ router.get("/get_ticket", async(req, res, next)=>{
         if(id_service == undefined || id_service <0 || id_service > 4 )
             res.status(400).json("ERROR MESSAGE")
         addTicket(id_service, id_ticket)
+        const n_t = id_ticket;
         id_ticket++;
         res.status(200).json( {
-            id_ticket: id_ticket
+            id_ticket: n_t
         });
     }catch(error)
     {

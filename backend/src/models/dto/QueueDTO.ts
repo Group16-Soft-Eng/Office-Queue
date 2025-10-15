@@ -56,10 +56,21 @@ export function getLongestQueueByServiceType(service_type: string[]): QueueDTO |
             return null;
         }
     }
-
-    return queues
-        .filter(q => service_type.includes(q.service_type))
-        .reduce((prev, curr) => (prev.ticket_list.length > curr.ticket_list.length ? prev : curr), queues[0]); // find the longest queue for a service_type
+    
+    // Filter queues that match the service types
+    const filteredQueues = queues.filter(q => service_type.includes(q.service_type));
+    
+    // If no queues match, return null
+    if (filteredQueues.length === 0) {
+        return null;
+    }
+    
+    // Return the longest queue among filtered queues
+    const longestQueue = filteredQueues.reduce((prev, curr) => 
+        (prev.ticket_list.length > curr.ticket_list.length ? prev : curr)
+    );
+    
+    return longestQueue;
 }
 
 // add a new ticket to the shortest queue for a specific service_type
@@ -93,8 +104,10 @@ export function popTicketFromQueue(service_type: string): {queue_id: number, tic
 // serve next client from the longest queue for a specific service_type
 export function callNextClient(service_type: string[]): number | null {
     const longest_queue = getLongestQueueByServiceType(service_type);
-    if (longest_queue) {
-        return longest_queue.ticket_list[0]; // return the first ticket in the longest queue
+    if (longest_queue !== null) {
+        const ticket= longest_queue.ticket_list[0]; // return the first ticket in the longest queue
+        popTicketFromQueue(longest_queue.service_type);
+        return ticket;
     }
     return null;
 }

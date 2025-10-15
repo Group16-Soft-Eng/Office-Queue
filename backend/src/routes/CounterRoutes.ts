@@ -8,7 +8,6 @@ router.post("/register_counter", async(req, res, next) =>{
         const res_json = openCounter(req.body["id"]);
         console.log(res_json)
         req.body["services"].forEach(element => {
-            console.log(element)
             addCounterService(req.body["id"], element, true)
         });
         res.status(200).json(res_json)
@@ -29,29 +28,12 @@ router.get("/next_customer", async(req, res, next)=>{
         if (!counter || !counter.is_active) {
             return res.status(400).json({ error: "Counter not found or inactive" });
         }
-        const queues = getAllQueues();
-        let longestQueue = null;
-        let maxLength = -1;
-        
-        counter.services?.forEach(service_type => {
-            const serviceQueues = queues.filter(q => q.service_type === service_type);
-            serviceQueues.forEach(queue => {
-                if (queue.ticket_list.length > maxLength) {
-                    maxLength = queue.ticket_list.length;
-                    longestQueue = queue;
-                }
-            });
-        });2
-        
-        if (!longestQueue || longestQueue.ticket_list.length === 0) {
-            return res.status(200).json({ message: "No customers waiting" });
-        }
-        
-        const result = serveNextClient(longestQueue.service_type);        
+        console.log(counter.services)
+        const result = serveNextClient(counter.services);    
+        console.log("Result: ", result);    
         if (result) {
             res.status(200).json({
-                id_ticket: result.old_ticket,
-                service_type: longestQueue.service_type
+                id_ticket: result
             });
         } else {
             res.status(200).json({ message: "No customers to serve" });

@@ -24,11 +24,11 @@ export function popPrevclient(service_type: string[]){
 // SERVE NEXT CLIENT
 export function serveNextClient(service_type: string[]): number | null {
     // call next client now : find the longest queue and serve the first client + and pops the previous ticket from the queue
-    const queue = getLongestQueueByServiceType(service_type)
+    //const queue = getLongestQueueByServiceType(service_type)
     //const {queue_id, ticket} = popTicketFromQueue(queue.service_type);
     
     // notify the system that the next client is being served
-    const new_ticket = callNextClient([queue.service_type]);
+    const new_ticket = callNextClient(service_type);
     return new_ticket;
 }
 

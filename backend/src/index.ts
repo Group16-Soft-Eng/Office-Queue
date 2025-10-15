@@ -1,7 +1,7 @@
 import {app}  from "@app";
 import { CONFIG } from "@config";
 import { initializeDatabase } from "@database";
-import {initializeCounters} from "@dao/CounterDAO"
+import {initializeCounters} from "@dto/CounterDTO"
 
 let server;
 
