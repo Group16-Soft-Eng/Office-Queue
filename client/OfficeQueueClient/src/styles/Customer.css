@@ -1,0 +1,172 @@
+.customer-container {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.customer-window {
+  background: rgba(255,255,255,0.92);
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(118,75,162,0.07);
+  padding: 2.5rem 2rem;
+  max-width: 420px;
+  width: 100%;
+  margin: 2rem auto;
+}
+
+.customer-header h2 {
+  color: #764ba2;
+  margin-bottom: 1rem;
+}
+
+.customer-body p {
+  color: #667eea;
+  font-weight: bold;
+}
+
+.customer-services {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.ticket-btn {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(118,75,162,0.08);
+  transition: background 0.2s;
+}
+
+.ticket-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Add to Customer.css */
+.ticket-btn.active {
+  background: #4CAF50;
+  color: white;
+}
+
+.ticket-btn.inactive {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* Add to CounterPage.css */
+.counter-btn.active {
+  background: #2196F3;
+  color: white;
+}
+
+.counter-btn.inactive {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+/* Add to Customer.css */
+.service-info {
+  margin-top: 8px;
+  font-size: 0.9rem;
+}
+
+.queue-length {
+  color: #666;
+  margin-bottom: 2px;
+}
+
+.estimated-time {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+.inactive-label {
+  margin-top: 8px;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+/* Add to TicketPopup.css */
+.estimated-time-info {
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 15px 0;
+  border-left: 4px solid #3498db;
+}
+
+.estimated-time-info strong {
+  color: #e74c3c;
+}
+
+/* Add to DisplayBoard.css */
+.service-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+.estimated-time {
+  background: rgba(231, 76, 60, 0.2);
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+.queue-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.ticket-info {
+  flex: 1;
+  margin: 0 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Add to DisplayBoard.css */
+.no-customers-section {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 50px 25px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+}
+
+.no-customers-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.no-customers-section h2 {
+  color: #2ecc71;
+  margin-bottom: 10px;
+  font-size: 2rem;
+}
+
+.no-customers-section p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
