@@ -1,7 +1,7 @@
 //! CONTROLLER for QUEUEs
 
-import { QueueDTO, createQueueDTO, queueToJSON } from '../models/dto/QueueDTO';
-import { getQueues, getLongestQueueByServiceType, addTicketToQueue, popTicketFromQueue, callNextClient } from '../models/dao/QueueDAO';
+import { QueueDTO, createQueueDTO, queueToJSON } from '@models/dto/QueueDTO';
+import { getQueues, getLongestQueueByServiceType, addTicketToQueue, popTicketFromQueue, callNextClient } from '@models/dto/QueueDTO';
 
 // ADD TICKET
 export const addTicket = (service_type: string, ticket_id: number): QueueDTO | null => {
@@ -10,17 +10,27 @@ export const addTicket = (service_type: string, ticket_id: number): QueueDTO | n
     return updated_queue ? queueToJSON(updated_queue) : null;
 }
 
+// POP prev client from queue
+export function popPrevclient(service_type: string[]){
 
-// SERVE NEXT CLIENT
-export function serveNextClient(service_type: string): {new_ticket: string | null, old_ticket: number | null} | null {
-    // call next client now : find the longest queue and serve the first client + and pops the previous ticket from the queue
-    const {queue_id, ticket} = popTicketFromQueue(service_type);
-    
-    // notify the system that the next client is being served
-    const new_ticket = callNextClient(queue_id);
-    return {new_ticket: new_ticket, old_ticket: ticket};
+    const queue = getLongestQueueByServiceType(service_type)
+    const {queue_id, ticket} = popTicketFromQueue(queue.service_type);
+    if (!ticket){
+        return null;
+    }
+    return ticket;
 }
 
+// SERVE NEXT CLIENT
+export function serveNextClient(service_type: string[]): number | null {
+    // call next client now : find the longest queue and serve the first client + and pops the previous ticket from the queue
+    const queue = getLongestQueueByServiceType(service_type)
+    //const {queue_id, ticket} = popTicketFromQueue(queue.service_type);
+    
+    // notify the system that the next client is being served
+    const new_ticket = callNextClient([queue.service_type]);
+    return new_ticket;
+}
 
 // GET QUEUES
 export const getAllQueues = (): QueueDTO[] => {

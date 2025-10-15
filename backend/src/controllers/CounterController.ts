@@ -1,7 +1,7 @@
 //! CONTROLLER for COUNTERs
 
-import {CounterDTO, createCounterDTO, counterToJSON} from '../models/dto/CounterDTO';
-import {getCounters, setActive, addService, setInactive, removeService} from '../models/dto/CounterDTO';
+import {CounterDTO, createCounterDTO, counterToJSON} from '@models/dto/CounterDTO';
+import {getCounters, setActive, addService, setInactive, removeService} from '@models/dto/CounterDTO';
 
 
 // OPEN A COUNTER

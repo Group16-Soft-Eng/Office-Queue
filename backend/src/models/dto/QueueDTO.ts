@@ -1,22 +1,40 @@
+/* tslint:disable */
+/* eslint-disable */
+
+//! QUEUE DTO INTERFACE
+
+import { checkServiceType } from "./ServicesDTO";
+
 /**
- * Data Transfer Object for Queue
- * with the following structure:
+ * Queue structure: 
  * {
-    service_type: "id_s",
-    ticket_list : [1,2,3,4 ...],
-    avg_service_time : UTC_seconds
-}
-*/
+    "queue_id": "q1",
+    "service_type": "id_s",
+    "ticket_list": [1, 2, 3, 4, ...],
+    "avg_service_time": "seconds"
+   }
+ * 
+ */
+
 
 export class QueueDTO {
-    queue_id: string;
+    queue_id: number;
     service_type: string;       // string oppure definire enum?
     ticket_list: number[];      // array of ticket object or ticket numbers
     avg_service_time: number;   // in minutes , rounded to nearest integer
 }
 
+// config 4 queues for the office
+let queues = [
+    createQueueDTO(1, "s1", []),
+    createQueueDTO(2, "s2", []),
+    createQueueDTO(3, "s3", []),
+    createQueueDTO(4, "s4", [])
+];
+
+
 // factory function to create a QueueDTO
-export function createQueueDTO(queue_id: string, service_type: string, ticket_list: number[], avg_service_time?: number): QueueDTO {
+export function createQueueDTO(queue_id: number, service_type: string, ticket_list: number[], avg_service_time?: number): QueueDTO {
     return {
         queue_id,
         service_type,
@@ -24,6 +42,68 @@ export function createQueueDTO(queue_id: string, service_type: string, ticket_li
         avg_service_time
     };
 }
+
+// get the list of queues
+export function getQueues(): QueueDTO[] {
+    return queues;
+}
+
+// get the longest queue for a specific service_type
+export function getLongestQueueByServiceType(service_type: string[]): QueueDTO | null {
+    
+    for (const t of service_type) {
+        if (!checkServiceType(t)) {
+            return null;
+        }
+    }
+
+    return queues
+        .filter(q => service_type.includes(q.service_type))
+        .reduce((prev, curr) => (prev.ticket_list.length > curr.ticket_list.length ? prev : curr), queues[0]); // find the longest queue for a service_type
+}
+
+// add a new ticket to the shortest queue for a specific service_type
+export function addTicketToQueue(service_type: string, ticket_id: number): QueueDTO | null {
+    if (!checkServiceType(service_type)) {
+        return null;
+    }
+    const queue = queues.find(q => q.service_type === service_type);
+    if (queue) {
+        queue.ticket_list.push(ticket_id);
+        return queue;
+    }
+    return null;
+}
+
+// pop a ticket from a specific queue
+export function popTicketFromQueue(service_type: string): {queue_id: number, ticket: number | null} | null {
+    if (!checkServiceType(service_type)) {
+        return null;
+    }
+    const queue = queues.find(q => q.service_type === service_type);
+    if (queue) {
+        if (queue.ticket_list.length === 0) {
+            return null; // queue is empty
+        }
+        const prev_ticket = queue.ticket_list.shift() || null;
+        return {queue_id: queue.queue_id, ticket: prev_ticket}; // return the first ticket in the queue
+    }
+}
+
+// serve next client from the longest queue for a specific service_type
+export function callNextClient(service_type: string[]): number | null {
+    const longest_queue = getLongestQueueByServiceType(service_type);
+    if (longest_queue) {
+        return longest_queue.ticket_list[0]; // return the first ticket in the longest queue
+    }
+    return null;
+}
+
+//check if queue_id is valid
+export function checkQueueId(queue_id: number): boolean { 
+    return queues.some(q => q.queue_id === queue_id); // some: for every element of the array
+}
+
 
 // convert a JSON object to QueueDTO
 export function queueToJSON(json: any): QueueDTO {
@@ -43,13 +123,4 @@ export function queueToJSONTyped(
         ticket_list: value["ticket_list"],
         avg_service_time: value["avg_service_time"]
     };
-}
-
-/**
- * SERVICES FOR QUEUES
- */
-// check if queue_id is valid
-export function checkQueueId(queue_id: string): boolean {
-    const valid_queue_ids = ["q1", "q2", "q3", "q4"];
-    return valid_queue_ids.includes(queue_id);
 }
