@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../styles/ServicePage.css';
+import { completeTicket } from '../api/ticketApi';
 
 const ServicePage: React.FC = () => {
   // Get the counter/service ID from the URL (like /service/1, /service/2, etc.)
@@ -76,12 +77,11 @@ const ServicePage: React.FC = () => {
   // Mark the current customer as finished
   const completeCurrentTicket = () => {
     // Increase the "served today" counter
-    const servedCount = parseInt(localStorage.getItem(`service_${serviceId}_served`) || '0') + 1;
-    localStorage.setItem(`service_${serviceId}_served`, servedCount.toString());
     
-    // Clear the current ticket (counter is now available)
-    localStorage.removeItem(`current_serving_${serviceId}`);
-    setCurrentTicket(null);
+    completeTicket(currentTicket!).then(() => {
+      // Clear the current ticket and update storage
+      setCurrentTicket(null);
+    });
   };
 
   // Show inactive message if this counter is turned off

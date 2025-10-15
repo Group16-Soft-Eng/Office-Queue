@@ -2,6 +2,7 @@
 import React from "react";
 import TicketPopup from "../components/TicketPopup";
 import '../styles/Customer.css';
+import { getTicket } from "../api/ticketApi";
 
 const Customer: React.FC = () => {
   // State variables to manage the component
@@ -55,42 +56,15 @@ const Customer: React.FC = () => {
     
     try {
       // Create a new ticket number
-      const ticketNumber = generateTicketNumber(serviceId);
-      setCurrentTicket(ticketNumber);
-      
-      // Calculate how long they'll wait
-      const estimatedWait = calculateEstimatedTime(serviceId);
-      setEstimatedTime(estimatedWait);
-      
-      // Add this ticket to the service queue
-      addTicketToQueue(serviceId, ticketNumber);
-      
+      const ticket = await getTicket(serviceId.toString());
+      console.log(ticket);
+      setCurrentTicket(ticket.id_ticket);
     } catch {
       setErrorTicket("Error creating ticket");
     } finally {
       setLoading(false);
       setTicketVisible(true);
     }
-  };
-
-  // Generate a unique ticket number like "S1-001"
-  const generateTicketNumber = (serviceId: number): string => {
-    // Get and update the ticket counter for this service
-    const count = parseInt(localStorage.getItem(`service_${serviceId}_ticketCount`) || '0') + 1;
-    localStorage.setItem(`service_${serviceId}_ticketCount`, count.toString());
-    // Format as S1-001, S2-001, etc.
-    return `S${serviceId}-${count.toString().padStart(3, '0')}`;
-  };
-
-  // Add the new ticket to the service queue
-  const addTicketToQueue = (serviceId: number, ticketNumber: string) => {
-    const queueKey = `service_${serviceId}_queue`;
-    const existingQueue = localStorage.getItem(queueKey);
-    const queue = existingQueue ? JSON.parse(existingQueue) : [];
-    
-    // Add new ticket to end of queue
-    const updatedQueue = [...queue, ticketNumber];
-    localStorage.setItem(queueKey, JSON.stringify(updatedQueue));
   };
 
   // Close the ticket popup
