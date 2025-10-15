@@ -21,13 +21,10 @@
       "@services/*": ["services/*"],
       "@routes/*": ["routes/*"],
       "@controllers/*": ["controllers/*"],
-      "@middlewares/*": ["middlewares/*"],
       "@database": ["database/connection.ts"],
       "@config": ["config/config.ts"],
-      "@utils": ["utils.ts"],
       "@app": ["app.ts"],
-      "@test/*": ["../test/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "test", "scripts"]
 }
