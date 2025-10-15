@@ -1,0 +1,40 @@
+//! CONTROLLER for QUEUEs
+
+import { QueueDTO, createQueueDTO, queueToJSON } from '@models/dto/QueueDTO';
+import { getQueues, getLongestQueueByServiceType, addTicketToQueue, popTicketFromQueue, callNextClient } from '@models/dto/QueueDTO';
+
+// ADD TICKET
+export const addTicket = (service_type: string, ticket_id: number): QueueDTO | null => {
+    // add a new ticket to the shortest queue for a specific service_type
+    const updated_queue = addTicketToQueue(service_type, ticket_id);
+    return updated_queue ? queueToJSON(updated_queue) : null;
+}
+
+// POP prev client from queue
+export function popPrevclient(service_type: string[]){
+
+    const queue = getLongestQueueByServiceType(service_type)
+    const {queue_id, ticket} = popTicketFromQueue(queue.service_type);
+    if (!ticket){
+        return null;
+    }
+    return ticket;
+}
+
+// SERVE NEXT CLIENT
+export function serveNextClient(service_type: string[]): number | null {
+    // call next client now : find the longest queue and serve the first client + and pops the previous ticket from the queue
+    //const queue = getLongestQueueByServiceType(service_type)
+    //const {queue_id, ticket} = popTicketFromQueue(queue.service_type);
+    
+    // notify the system that the next client is being served
+    const new_ticket = callNextClient(service_type);
+    return new_ticket;
+}
+
+// GET QUEUES
+export const getAllQueues = (): QueueDTO[] => {
+    // returns the list of all queues
+    const queues = getQueues();
+    return queues.map(queue => queueToJSON(queue));
+}
