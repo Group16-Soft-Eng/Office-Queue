@@ -56,7 +56,7 @@ const Customer: React.FC = () => {
     
     try {
       // Create a new ticket number
-      const ticket = await getTicket(serviceId.toString());
+      const ticket = await getTicket("s" + serviceId.toString());
       console.log(ticket);
       setCurrentTicket(ticket.id_ticket);
     } catch {
@@ -115,12 +115,15 @@ const Customer: React.FC = () => {
                 >
                   <div className="service-name">{service.name}</div>
                   {/* Show queue info only for active services */}
-                  {isActive && (
+                  {
+                  /*
+                  isActive && (
                     <div className="service-info">
                       <div className="queue-length">{queueLength} in queue</div>
                       <div className="estimated-time">~{estimatedTime}</div>
                     </div>
-                  )}
+                    
+                  )*/}
                   {/* Show inactive label for inactive services */}
                   {!isActive && <div className="inactive-label">(Inactive)</div>}
                 </button>

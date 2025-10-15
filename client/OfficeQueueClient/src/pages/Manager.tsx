@@ -1,6 +1,7 @@
 // ManagerPage.tsx
 import React, { useState, useEffect } from 'react';
 import '../styles/Manager.css';
+import { logoutCounter, registerCounter } from '../api/counterApi';
 
 const ManagerPage: React.FC = () => {
   // State to track which services are selected and their statistics
@@ -8,6 +9,7 @@ const ManagerPage: React.FC = () => {
   const [statistics, setStatistics] = useState<{[key: number]: {queueLength: number, servedToday: number}}>({}); // Stats for each service
   const [isLoaded, setIsLoaded] = useState(false);  // Track if data has finished loading
 
+  
   // Load saved services when the page first loads
   useEffect(() => {
     const loadSavedServices = () => {
@@ -64,11 +66,18 @@ const ManagerPage: React.FC = () => {
   // Toggle a service on/off
   const toggleService = (serviceId: number) => {
     console.log('🔄 Toggling service:', serviceId);
-    setSelectedServices(prev => 
-      prev.includes(serviceId) 
-        ? prev.filter(id => id !== serviceId)  // Remove if already selected
-        : [...prev, serviceId]                 // Add if not selected
-    );
+    if (selectedServices.includes(serviceId)) {
+      // If toggling off, call logoutCounter
+      logoutCounter(serviceId).then(() => {
+        setSelectedServices(prev => prev.filter(id => id !== serviceId));
+      });
+    } else {
+      // If toggling on, call registerCounter
+      registerCounter(serviceId, [`s${serviceId}`]).then((data) => {
+      console.log('✅ Counter registered:', data);
+      setSelectedServices(prev => [...prev, serviceId]);
+      });
+    }
   };
 
   // Load statistics for all services
